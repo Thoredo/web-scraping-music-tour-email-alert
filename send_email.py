@@ -13,7 +13,7 @@ RECEIVER = os.getenv("MY_EMAIL")
 def send_email(message):
     """ Sents email to gmail adress"""
     host = "smtp.gmail.com"
-    port = 485
+    port = 465
 
     context = ssl.create_default_context()
 
