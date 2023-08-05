@@ -1,6 +1,8 @@
 import requests
 import selectorlib
+import time
 from send_email import send_email
+
 
 URL = "https://programmer100.pythonanywhere.com/tours/"
 
@@ -23,18 +25,24 @@ def store(extracted):
     with open("data.txt", "a") as file:
         file.write(extracted + "\n")
 
-def read(extracted):
+def read():
     with open("data.txt", "r") as file:
         return file.read()
 
 if __name__ == "__main__":
-    scraped = scrape(URL)
-    extracted = extract(scraped)
+    while True:
+        scraped = scrape(URL)
+        extracted = extract(scraped)
 
-    print(extracted)
-    content = read(extracted)
-    if extracted != "No upcoming tours":
-        if extracted not in content:
-            store(extracted)
-            send_email(extracted)
-            
+        print(extracted)
+        content = read(extracted)
+        if extracted != "No upcoming tours":
+            if extracted not in content:
+                email_message = f"""\
+Subject: Hey, new event was found!
+The following even was found:
+{extracted}
+"""
+                store(extracted)
+                send_email(message=email_message)
+        time.sleep(2)
