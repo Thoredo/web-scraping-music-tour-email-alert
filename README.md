@@ -1,0 +1,2 @@
+# What is this project?
+This project uses webscraping to take data of a website, put that data into a website and when a band announces a new tour on that website the project sents an email to notify the user.
